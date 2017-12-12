@@ -1,8 +1,7 @@
 class Parking < ApplicationRecord
-
+  belongs_to :user, :optional => true
   validates_presence_of :parking_type, :start_at
   validates_inclusion_of :parking_type, :in => ["guest", "short-term", "long-term"]
-
   validate :validate_end_at_with_amount  # NOTE: 自定义一个检查规则 validate
 
   def validate_end_at_with_amount

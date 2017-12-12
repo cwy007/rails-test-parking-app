@@ -4,26 +4,24 @@
     <h1 class="text-center">停车费用计算</h1>
 
     <% if @parking.amount.present? %>
-    <div class="my-5 border border-warning p-5">
-      <p>从 <b><%= @parking.start_at %></b> 至 <b><%= @parking.end_at %></b></p>
-      <p>共 <b><%= @parking.duration %></b> 分钟</p>
-      <p>
-        总计
-        <span class="text-danger lead font-weight-bold">
-          <%= number_to_currency(@parking.amount.to_f / 100, :unit => "¥") %>
-        </span>
-        元
-      </p>
+      <div class="my-5 border border-warning p-5">
+        <p>从 <b><%= @parking.start_at %></b> 至 <b><%= @parking.end_at %></b></p>
+        <p>共 <b><%= @parking.duration %></b> 分钟</p>
+        <p>总计
+          <span class="text-danger lead font-weight-bold">
+            <%= number_to_currency(@parking.amount.to_f / 100, :unit => "¥") %>
+          </span> 元
+        </p>
+      </div>
       <p class="mt-3 text-center">
         <%= link_to "继续停车", new_parking_path, class: 'btn btn-secondary' %>
       </p>
-    </div>
     <% else %>
-    <%= form_for @parking do |f| %>
-    <p class="mt-3 text-center">
-      <%= f.submit "结束计费", class: 'btn btn-secondary' %>
-    </p>
-    <% end %>
+      <%= form_for @parking do |f| %>
+        <p class="mt-3 text-center">
+          <%= f.submit "结束计费", class: 'btn btn-secondary' %>
+        </p>
+      <% end %>
     <% end %>
   </div>
 </div>
