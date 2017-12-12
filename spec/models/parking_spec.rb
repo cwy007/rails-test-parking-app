@@ -28,7 +28,7 @@ RSpec.describe Parking, type: :model do
 
     context "guest" do
       before do
-        @parking = Parking.new( :parking_type => 'guest', :start_at => @time )
+        @parking = Parking.new( :parking_type => 'guest', :user => @user, :start_at => @time )
       end
 
       it "30 mins should be ¥2" do
@@ -96,6 +96,49 @@ RSpec.describe Parking, type: :model do
         @parking.end_at = @time + 120.minutes
         @parking.calculate_amount
         expect( @parking.amount ).to eq(300)
+      end
+    end
+
+    context "long-term" do
+      before do
+        @user = User.create( :email => 'test@example.com', :password => '123456789' )
+        @parking = Parking.new( :parking_type => 'long-term', :user => @user, :start_at => @time )
+      end
+
+      it "3 hours should be ¥12" do
+        @parking.end_at = @time + 3.hours
+        @parking.calculate_amount
+        expect( @parking.amount ).to eq(1200)
+      end
+
+      it "6 hours should be ¥12" do
+        @parking.end_at = @time + 6.hours
+        @parking.calculate_amount
+        expect( @parking.amount ).to eq(1200)
+      end
+
+      it "23 hours should be ¥16" do
+        @parking.end_at = @time + 23.hours
+        @parking.calculate_amount
+        expect( @parking.amount ).to eq(1600)
+      end
+
+      it "24 hours should be ¥16" do
+        @parking.end_at = @time + 24.hours
+        @parking.calculate_amount
+        expect( @parking.amount ).to eq(1600)
+      end
+
+      it "25 hours should be ¥28" do
+        @parking.end_at = @time + 25.hours
+        @parking.calculate_amount
+        expect( @parking.amount ).to eq(2800)
+      end
+
+      it "48 hours should be ¥32" do
+        @parking.end_at = @time + 48.hours
+        @parking.calculate_amount
+        expect( @parking.amount ).to eq(3200)
       end
     end
   end
