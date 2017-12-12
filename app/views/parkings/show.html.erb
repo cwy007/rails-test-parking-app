@@ -5,6 +5,7 @@
 
     <% if @parking.amount.present? %>
       <div class="my-5 border border-warning p-5">
+        <p>计费方式 <%= @parking.parking_type %></p>
         <p>从 <b><%= @parking.start_at %></b> 至 <b><%= @parking.end_at %></b></p>
         <p>共 <b><%= @parking.duration %></b> 分钟</p>
         <p>总计
@@ -17,6 +18,12 @@
         <%= link_to "继续停车", new_parking_path, class: 'btn btn-secondary' %>
       </p>
     <% else %>
+      <div class="border p-5 m-3">
+        <span class="text-uppercase badge badge-warning p-2 mr-3 mb-2">parking_type:</span>
+        <%= @parking.parking_type %><br>
+        <span class="text-uppercase badge badge-warning p-2 mr-3">start_at:</span>
+        <%= @parking.start_at %>
+      </div>
       <%= form_for @parking do |f| %>
         <p class="mt-3 text-center">
           <%= f.submit "结束计费", class: 'btn btn-secondary' %>

@@ -1,7 +1,25 @@
-<h1 class="text-center">停车费用计算</h1>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <h1 class="text-center">停车费用计算</h1>
 
-<%= form_for @parking do |f| %>
-  <p class="mt-3 text-center">
-    <%= f.submit "开始计费", class: 'btn btn-secondary' %>
-  </p>
-<% end %>
+    <div class="m-3 border p-5">
+      <%= form_for @parking do |f| %>
+        <% if current_user %>
+          <label>
+            <%= f.radio_button :parking_type, "short-term", checked: true %> 短期费率
+          </label>
+          <br>
+          <label>
+            <%= f.radio_button :parking_type, 'long-term' %> 长期费率
+          </label>
+        <% else %>
+          一般费率
+        <% end %>
+
+        <p class="mt-3 text-center">
+          <%= f.submit "开始计费", class: 'btn btn-secondary' %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>
