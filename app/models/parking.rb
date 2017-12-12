@@ -1,5 +1,5 @@
 class Parking < ApplicationRecord
-  
+
   validates_presence_of :parking_type, :start_at
   validates_inclusion_of :parking_type, :in => ["guest", "short-term", "long-term"]
 
@@ -21,7 +21,9 @@ class Parking < ApplicationRecord
 
   def calculate_amount
     if self.amount.blank? && self.start_at.present? && self.end_at.present?
-      self.amount = 9487  # NOTE:
+      if duration <= 60
+        self.amount = 200
+      end 
     end
   end
 
