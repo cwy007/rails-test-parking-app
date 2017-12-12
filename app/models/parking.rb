@@ -52,7 +52,7 @@ class Parking < ApplicationRecord
     else
       t = duration % 1440
       within_one_day = 0
-      if t > 0 && t <= 360         # 48 hours test example 
+      if t > 0 && t <= 360         # 48 hours test example
         within_one_day = 1200
       elsif t > 360
         within_one_day = 1600
