@@ -22,6 +22,6 @@ class ParkingsController < ApplicationController
 
     @parking.save!
 
-    redirect_to parking_path(@parking) 
+    redirect_to parking_path(@parking)
   end
 end
